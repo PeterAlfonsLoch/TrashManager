@@ -6,7 +6,9 @@ Installation requires following Packages sqlite3, sqlite3-dev, libboost-filesyst
 I used cmake for the Programm. For install the Programm do...
 
 cmake [TRASHMANAGERDIRECTORY]
+
 make
+
 make install //you need root permission for this command
 
 You can use the Programm like this...
