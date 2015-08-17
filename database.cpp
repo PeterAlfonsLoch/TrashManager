@@ -23,11 +23,7 @@ void trm::Database::openDb()
 
 void trm::Database::setDbPath()
 {
-    std::string strPath;
-    if (user == "root")
-        strPath = "/root/.trashdb/";
-    else
-        strPath = "/home/" + (std::string)user + "/.trashdb/";
+    std::string strPath = homedir + "/.trashdb/";
     fs::path path(strPath);
     if (!fs::exists(path))
         fs::create_directory(path);
@@ -70,9 +66,10 @@ trm::Database::~Database()
     sqlite3_close(db);
 }
 
-void trm::Database::init(std::string username)
+void trm::Database::init(std::string username, std::string dir)
 {
     user = username;
+    homedir = dir;
     trm::Database::setDbPath();
     trm::Database::openDb();
 }
@@ -148,14 +145,19 @@ sqlite3_stmt* trm::Database::getEntry(int id)
 void trm::Database::deleteEntry(std::string name)
 {
     sqlite3_stmt *stmt;
-    std::string sql = "DELETE FROM trash WHERE OBJECTNAME='" + name + "';";
+    std::string sql = "DELETE FROM trash WHERE OBJECTNAME=?;";
 
-    dbStatus = sqlite3_exec(db, sql.c_str(), NULL, NULL, &errMsg);
+    dbStatus = sqlite3_prepare(db, sql.c_str(), -1, &stmt, 0);
     if (dbStatus != SQLITE_OK)
     {
         std::cout << "Database Error: " << errMsg << std::endl;
         exit(0);
     }
+
+    if (sqlite3_bind_text(stmt, 1, name.c_str(), -1, SQLITE_STATIC) != SQLITE_OK)
+        std::cout << "Database Bind Error: " << sqlite3_errmsg(db) << std::endl;
+    sqlite3_step(stmt);
+    sqlite3_finalize(stmt);
 }
 
 sqlite3_stmt* trm::Database::listEntrys()

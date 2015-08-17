@@ -176,6 +176,7 @@ void trm::System::getUser()
     uid = geteuid();
     pw = getpwuid(uid);
     user = std::string(pw->pw_name);
+    homedir = std::string(pw->pw_dir);
 }
 
 void trm::System::renameObject()
@@ -224,7 +225,7 @@ trm::System::System()
     trashDir = currentDir.string() + TRASH;
     //get the actually User that is logged in
     trm::System::getUser();
-    db.init(user);
+    db.init(user, homedir);
 }
 
 trm::System::~System()

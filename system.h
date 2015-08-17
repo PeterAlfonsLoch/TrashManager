@@ -20,12 +20,19 @@ namespace trm
 class System
 {
 private:
-    /* Username *
+    /*
+     * Username *
      * --------
      * Contains the Username that is actually logged in. Depending on the logged in User
      * in the Terminal in Linux.
      */
     std::string user;
+    /*
+     * Homedir *
+     * -------
+     * Saves the Homedir of the actually User.
+     */
+    std::string homedir;
     /*
      * Trash Directory *
      * -----------------

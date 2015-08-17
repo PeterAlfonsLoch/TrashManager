@@ -27,6 +27,12 @@ private:
      */
     std::string user;
     /*
+     * Homedir *
+     * -------
+     * Saves the Homedir of the actually User.
+     */
+    std::string homedir;
+    /*
      * Complete Path to the Database File *
      */
     std::string dbFile;
@@ -72,7 +78,7 @@ public:
      * -------------------
      * Sets Database Path, opens Databaseconnection, Creates Databasetable if necessary
      */
-    void init(std::string username);
+    void init(std::string username, std::string dir);
     /*
      * Get Database File *
      * -----------------
