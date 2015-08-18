@@ -8,7 +8,7 @@ using namespace trm;
 
 int main(int argc, char** argv)
 {
-    System *sys = new System();
+    System sys;
     Params para(sys);
     if (argc == 1)
         para.getParams(NULL, NULL, NULL);
@@ -19,9 +19,8 @@ int main(int argc, char** argv)
     else if (argc == 4)
         para.getParams(argv[1], argv[2], argv[3]);
     para.chooseFunc();
-    sys->execute();
+    sys.execute();
 
-    delete sys;
     return 0;
 }
 

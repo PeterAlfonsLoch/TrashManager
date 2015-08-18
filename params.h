@@ -57,7 +57,7 @@ public:
     /*
      * Constructor with System Object
      */
-    Params(System *system);
+    Params(System &system);
     /*
      * get Parameters *
      * --------------

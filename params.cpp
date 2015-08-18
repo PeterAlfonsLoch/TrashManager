@@ -71,9 +71,9 @@ void trm::Params::withOptPath()
         sys->setFunction(boost::bind(&System::help, sys));
 }
 
-trm::Params::Params(System *system)
+trm::Params::Params(System &system)
 {
-    sys = system;
+    sys = &system;
     param = NULL;
     path = NULL;
     optPath = NULL;
